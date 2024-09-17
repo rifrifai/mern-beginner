@@ -5,12 +5,15 @@ import productRoutes from "./routes/product.route.js";
 
 const app = express();
 dotenv.config();
-app.use(express.json()); // mengisi req body menggunakan json data
+app.use(express.json()); // mengizinkan utk mengisi req body menggunakan json data
+app.use(express.urlencoded({ extended: true })); // mengizinkan utk mengisi req body menggunakan form
+
+const PORT = process.env.PORT || 5000;
 
 app.use("/api/products", productRoutes);
 
-app.listen(5000, () => {
-  console.log("server started at http://localhost:5000");
+app.listen(PORT, () => {
+  console.log("server started at http://localhost:" + PORT);
 });
 
 // conn
