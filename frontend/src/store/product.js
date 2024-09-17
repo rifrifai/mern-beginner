@@ -1,4 +1,4 @@
-import create from "zustand";
+import { create } from "zustand";
 
 export const useProductStore = create((set) => ({
   products: [],
@@ -20,6 +20,13 @@ export const useProductStore = create((set) => ({
     });
 
     const data = await res.json();
-    set((state) => ({ products: [...state.products, data] }));
+    set((state) => ({ products: [...state.products, data.data] }));
+    return { success: true, message: "Product created successfully" };
+  },
+  // get all products
+  fetchProducts: async () => {
+    const res = await fetch("/api/products");
+    const data = await res.json();
+    set({ products: data.data });
   },
 }));

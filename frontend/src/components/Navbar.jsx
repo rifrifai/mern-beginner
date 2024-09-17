@@ -36,7 +36,7 @@ function Navbar() {
           <HStack spacing={2} alignItems={"center"}>
             <Link to={"/create"}>
               <Button>
-                <CiSquarePlus />
+                <CiSquarePlus size={30} />
               </Button>
             </Link>
             <Button onClick={toggleColorMode}>
