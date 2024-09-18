@@ -58,7 +58,7 @@ export const useProductStore = create((set) => ({
     const data = await res.json();
     if (!data.success) return { success: false, message: data.message };
 
-    // update ui immediately without refreshS
+    // update ui immediately without refresh
     set((state) => ({
       products: state.products.map((product) =>
         product._id === pid ? data.data : product

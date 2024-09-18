@@ -24,13 +24,15 @@ import { useProductStore } from "../store/product";
 import { useState } from "react";
 
 const ProductCard = ({ product }) => {
-  const { updatedProduct, setUpdatedProduct } = useState(product);
+  const [updatedProduct, setUpdatedProduct] = useState(product);
   const textColor = useColorModeValue("gray.800", "gray.200");
   const bg = useColorModeValue("white", "gray.800");
 
   const { deleteProduct, updateProduct } = useProductStore();
   const toast = useToast();
   const { isOpen, onOpen, onClose } = useDisclosure();
+
+  // handle delete product
   const handleDeleteProduct = async (pid) => {
     const { success, message } = await deleteProduct(pid);
     if (!success) {
@@ -52,6 +54,7 @@ const ProductCard = ({ product }) => {
     }
   };
 
+  // handle update product
   const handleUpdateProduct = async (pid, updatedProduct) => {
     const { success, message } = await updateProduct(pid, updatedProduct);
     onClose();
@@ -99,7 +102,6 @@ const ProductCard = ({ product }) => {
           <Text fontWeight={"bold"} fontSize={"xl"} color={textColor} mb={4}>
             Rp. {product.price}
           </Text>
-
           <HStack spacing={2}>
             <IconButton
               icon={<EditIcon />}
@@ -113,6 +115,8 @@ const ProductCard = ({ product }) => {
             />
           </HStack>
         </Box>
+
+        {/* update product modal */}
         <Modal isOpen={isOpen} onClose={onClose}>
           <ModalOverlay />
           <ModalContent>
@@ -123,7 +127,7 @@ const ProductCard = ({ product }) => {
                 <Input
                   placeholder="Product Name"
                   name="name"
-                  value={updatedProduct.name}
+                  value={updatedProduct?.name || ""}
                   onChange={(e) =>
                     setUpdatedProduct({
                       ...updatedProduct,
@@ -135,7 +139,7 @@ const ProductCard = ({ product }) => {
                   placeholder="Price"
                   name="price"
                   type="number"
-                  value={updatedProduct.price}
+                  value={updatedProduct?.price || ""}
                   onChange={(e) =>
                     setUpdatedProduct({
                       ...updatedProduct,
@@ -146,7 +150,7 @@ const ProductCard = ({ product }) => {
                 <Input
                   placeholder="Image URL"
                   name="image"
-                  value={updatedProduct.image}
+                  value={updatedProduct?.image || ""}
                   onChange={(e) =>
                     setUpdatedProduct({
                       ...updatedProduct,
