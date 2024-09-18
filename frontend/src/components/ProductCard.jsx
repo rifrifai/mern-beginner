@@ -77,6 +77,16 @@ const ProductCard = ({ product }) => {
     }
   };
 
+  // format mata uang
+  const priceFormat = (price) => {
+    const rupiah = new Intl.NumberFormat("id-ID", {
+      style: "currency",
+      currency: "IDR",
+      maximumFractionDigits: 0,
+    }).format(price);
+    return rupiah;
+  };
+
   return (
     <>
       <Box
@@ -100,7 +110,7 @@ const ProductCard = ({ product }) => {
             {product.name}
           </Heading>
           <Text fontWeight={"bold"} fontSize={"xl"} color={textColor} mb={4}>
-            Rp. {product.price}
+            {priceFormat(product.price)}
           </Text>
           <HStack spacing={2}>
             <IconButton
