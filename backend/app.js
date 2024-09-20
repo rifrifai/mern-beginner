@@ -13,7 +13,7 @@ const PORT = process.env.PORT || 5000;
 app.use("/api/products", productRoutes);
 
 app.listen(PORT, () => {
-  console.log("server started at http://localhost:" + PORT);
+  console.log(`server started at http://localhost:${PORT}`);
 });
 
 // conn
@@ -21,3 +21,5 @@ mongoose
   .connect(process.env.MONGO_URI)
   .then(() => console.log("mongoDB connected"))
   .catch((err) => console.log(err));
+
+// what a lazy
